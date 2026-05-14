@@ -1,6 +1,5 @@
-
-type Mood = "happy" | "calm" | "pumped" | "focused" | "melancholic" | "party"
-type Activity = "yoga" | "work" | "sleep" | "workout" | "driving"
+import type { Mood } from "@/app/types";
+import type {Activity } from "@/app/types";
 
 async function getTracksFromGemini(mood: Mood, activity: Activity, energy: number |number[]) {
   const energyValue = Array.isArray(energy) ? energy[0] : energy;

@@ -3,8 +3,10 @@
 import { Sun, Moon, Zap, Cloud, Flame, PartyPopper, Dumbbell, PersonStanding, LaptopMinimal, BedDouble, CarFront, Sparkles} from 'lucide-react';
 import { useState } from "react";
 import * as Slider from "@radix-ui/react-slider";
+import type { SidebarProps } from '@/app/types';
 
-export default function Sidebar(){
+
+export default function Sidebar({ setTracks }: SidebarProps){
     const [selectedMood, setSelectedMood] = useState('')
     const [selectedActivity, setSelectedActivity] = useState('')
     const [selectedEnergy, setSelectedEnergy] = useState([5])
@@ -24,12 +26,13 @@ export default function Sidebar(){
         
           const data = await res.json()
           console.log(data)
+          setTracks(data.tracks)
     }
 
 
     return (
         <main className="md:flex">
-            <section className='px-10 md:border-r md:border-t md:border-gray-300 md:pr-15 md:pt-5 pb-5'>
+            <section className='px-10 md:border-r md:border-gray-300 md:pr-15 pb-5 md:pt-5'>
                 <h2 className='text-gray-500 font-semibold text-md uppercase text-center md:text-left'>Mood</h2>
                 <div className="grid grid-cols-2 grid-rows-3 gap-4 max-w-sm md:max-w-xs mx-auto md:mx-0 mt-3">
                         <div className={`flex flex-col items-center gap-1 border-2 border-gray-500 rounded-md p-5 cursor-pointer ${selectedMood === "happy" ? "text-green-400 border-green-400 bg-green-50" : "text-gray-500 border-gray-500"}`} onClick={()=> setSelectedMood("happy")}>
