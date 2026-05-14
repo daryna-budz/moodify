@@ -1,6 +1,6 @@
 "use client"
 
-import { Sun, Moon, Zap, Cloud, Flame, PartyPopper, Dumbbell, PersonStanding, LaptopMinimal, BedDouble, CarFront} from 'lucide-react';
+import { Sun, Moon, Zap, Cloud, Flame, PartyPopper, Dumbbell, PersonStanding, LaptopMinimal, BedDouble, CarFront, Sparkles} from 'lucide-react';
 import { useState } from "react";
 import * as Slider from "@radix-ui/react-slider";
 
@@ -9,9 +9,27 @@ export default function Sidebar(){
     const [selectedActivity, setSelectedActivity] = useState('')
     const [selectedEnergy, setSelectedEnergy] = useState([5])
 
+    const handleGenerate = async() =>{
+        const res = await fetch('/api/generate', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              mood: selectedMood,
+              activity: selectedActivity,
+              energy: selectedEnergy
+            })
+          })
+        
+          const data = await res.json()
+          console.log(data)
+    }
+
+
     return (
         <main className="md:flex">
-            <section className='px-10 md:border-r md:border-t md:border-gray-300 md:pr-15 md:pt-5'>
+            <section className='px-10 md:border-r md:border-t md:border-gray-300 md:pr-15 md:pt-5 pb-5'>
                 <h2 className='text-gray-500 font-semibold text-md uppercase text-center md:text-left'>Mood</h2>
                 <div className="grid grid-cols-2 grid-rows-3 gap-4 max-w-sm md:max-w-xs mx-auto md:mx-0 mt-3">
                         <div className={`flex flex-col items-center gap-1 border-2 border-gray-500 rounded-md p-5 cursor-pointer ${selectedMood === "happy" ? "text-green-400 border-green-400 bg-green-50" : "text-gray-500 border-gray-500"}`} onClick={()=> setSelectedMood("happy")}>
@@ -82,6 +100,7 @@ export default function Sidebar(){
                     </Slider.Root>
                     <span className='text-gray-500 text-lg text-center'>High</span>
                 </div>
+                <button onClick={handleGenerate} className="flex items-center gap-2 text-xl md:text-md font-semibold text-slate-800 border-3 rounded-xl p-3 mt-10 mx-auto cursor-pointer hover:text-white hover:bg-slate-800 transition-all duration-300"> <Sparkles size={30} color="currentColor"/> Generate playlist</button>
 
             </section>
         </main>
