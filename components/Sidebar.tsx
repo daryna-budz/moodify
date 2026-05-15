@@ -10,23 +10,31 @@ export default function Sidebar({ setTracks }: SidebarProps){
     const [selectedMood, setSelectedMood] = useState('')
     const [selectedActivity, setSelectedActivity] = useState('')
     const [selectedEnergy, setSelectedEnergy] = useState([5])
+    const [loading, setLoading] = useState(false)
 
     const handleGenerate = async() =>{
-        const res = await fetch('/api/generate', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              mood: selectedMood,
-              activity: selectedActivity,
-              energy: selectedEnergy
-            })
-          })
-        
-          const data = await res.json()
-          console.log(data)
-          setTracks(data.tracks)
+        setLoading(true)
+        try{
+            const res = await fetch('/api/generate', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                  mood: selectedMood,
+                  activity: selectedActivity,
+                  energy: selectedEnergy
+                })
+              })
+            
+              const data = await res.json()
+              console.log(data)
+              setTracks(data.tracks)
+        } catch(error){
+            console.error(error)
+        } finally{
+            setLoading(false)
+        }
     }
 
 
@@ -103,7 +111,12 @@ export default function Sidebar({ setTracks }: SidebarProps){
                     </Slider.Root>
                     <span className='text-gray-500 text-lg text-center'>High</span>
                 </div>
-                <button onClick={handleGenerate} className="flex items-center gap-2 text-xl md:text-md font-semibold text-slate-800 border-3 rounded-xl p-3 mt-10 mx-auto cursor-pointer hover:text-white hover:bg-slate-800 transition-all duration-300"> <Sparkles size={30} color="currentColor"/> Generate playlist</button>
+                <button onClick={handleGenerate} className={`flex items-center gap-2 text-xl md:text-md font-semibold border-3 rounded-xl p-3 mt-10 mx-auto ${
+                    loading 
+                        ? "bg-gray-300 text-gray-500 cursor-not-allowed border-gray-300 px-3"
+                        : "text-slate-800 cursor-pointer hover:text-white hover:bg-slate-800 transition-all duration-300"
+                          
+                }`}> <Sparkles size={30} color="currentColor"/> {loading ? "Generating ... ": "Generate playlist"}</button>
 
             </section>
         </main>
