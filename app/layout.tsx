@@ -1,4 +1,5 @@
 import "./globals.css";
+import Providers from "./providers";
 import { Albert_Sans } from 'next/font/google';
 
 const albertsans = Albert_Sans({
@@ -14,7 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={albertsans.className}>
-        {children}
+         <Providers>{children}</Providers>
       </body>
     </html>
   );
