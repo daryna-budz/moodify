@@ -13,7 +13,7 @@ export default function Home() {
 
   return (
     <>
-       <Navbar />
+       <Navbar/>
        <div className="flex flex-col md:flex-row md:border-t md:border-gray-300">
           <Sidebar setTracks={setTracks}/>
           <PlaylistPanel tracks={tracks}/>
