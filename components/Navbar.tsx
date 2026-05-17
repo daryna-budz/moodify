@@ -17,7 +17,7 @@ export default function Navbar(){
             </div>
             <div>
               {!session ? (
-                <button onClick={() => signIn("spotify", {callbackUrl: "/", authorizationParams: {show_dialog: "true",},})} className="text-xl md:text-2xl font-semibold border-3 text-slate-800 rounded-4xl p-3 cursor-pointer hover:text-white hover:bg-slate-800 transition-all duration-300">Connect Spotify</button>
+                <button onClick={() => signIn("spotify", {callbackUrl: "/", show_dialog: "true" })} className="text-xl md:text-2xl font-semibold border-3 text-slate-800 rounded-4xl p-3 cursor-pointer hover:text-white hover:bg-slate-800 transition-all duration-300">Connect Spotify</button>
               ) : (
                 <div className="flex items-center gap-4">
             
