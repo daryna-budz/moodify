@@ -1,4 +1,7 @@
+"use client"
+
 import { Sparkles } from 'lucide-react';
+import { signIn } from "next-auth/react"
 
 
 
@@ -13,7 +16,7 @@ export default function Navbar(){
                   <h1 className="text-2xl md:text-4xl font-bold text-slate-800">Moodify</h1>
             </div>
             <div>
-                 <button className="text-xl md:text-2xl font-semibold border-3 text-slate-800 rounded-4xl p-3 cursor-pointer hover:text-white hover:bg-slate-800 transition-all duration-300">Connect Spotify</button>
+                 <button onClick={() => signIn("spotify")} className="text-xl md:text-2xl font-semibold border-3 text-slate-800 rounded-4xl p-3 cursor-pointer hover:text-white hover:bg-slate-800 transition-all duration-300">Connect Spotify</button>
             </div>
           </nav>
         </header>
