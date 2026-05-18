@@ -74,9 +74,8 @@ export default function PlaylistPanel({ tracks }: PlaylistPanelProps) {
               Create your own playlist!
             </h2>
 
-            <p className="text-slate-500 mt-3 text-lg">
-              Choose your mood and generate something special
-            </p>
+            <p className="text-slate-500 mt-3 text-lg">Choose your mood and generate something special</p>
+            <p className="text-sm text-gray-500 mt-3">* Connect Spotify feature is currently limited to approved Spotify test users </p>
           </div>
         )}
       </section>
