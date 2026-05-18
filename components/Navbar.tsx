@@ -1,12 +1,19 @@
 "use client"
 
-import { Sparkles } from 'lucide-react';
+import { Sparkles, Menu, X } from 'lucide-react';
 import { signIn, signOut, useSession } from "next-auth/react"
+import { useState } from "react"
 
 
 
 export default function Navbar(){
     const { data: session } = useSession()
+    const [isMenuOpen, setIsMenuOpen] = useState(false)
+
+
+    function showMenu() {
+      setIsMenuOpen(!isMenuOpen)
+    }
 
     return (
         <header className="px-8 py-10 md:px-10">
@@ -17,7 +24,41 @@ export default function Navbar(){
             </div>
             <div>
               {!session ? (
-                  <button onClick={() => signIn("spotify", {callbackUrl: "/", show_dialog: "true" })} className="text-lg md:text-2xl font-semibold border-3 text-slate-800 rounded-4xl p-2 md:p-3 cursor-pointer hover:text-white hover:bg-slate-800 transition-all duration-300">Connect Spotify</button>
+                <>
+                    <div className='md:hidden'>
+                      {isMenuOpen ? (
+                        <X size={45} color="#1d293d" className='cursor-pointer' onClick={showMenu}/>
+                      ) : (
+                        <Menu size={45} color="#1d293d" className='cursor-pointer' onClick={showMenu}/>
+                      )}
+                    </div>
+                    <div className='hidden md:flex items-center gap-10'>
+                       <div className='md:text-xl font-semibold text-slate-800 cursor-pointer'>Saved Playlists</div>
+                       <button onClick={() => signIn("spotify", {callbackUrl: "/", show_dialog: "true" })} className="text-lg md:text-2xl font-semibold border-3 text-slate-800 rounded-4xl p-2 md:p-3 cursor-pointer hover:text-white hover:bg-slate-800 transition-all duration-300">Connect Spotify</button>
+                    </div>
+
+                    {isMenuOpen && (
+                        <div className="absolute text-center top-24 right-8 bg-white shadow-xl rounded-2xl p-5 flex flex-col gap-4 md:hidden ">
+                          <div className="font-semibold text-slate-800 cursor-pointer">
+                            Saved Playlists
+                          </div>
+
+                          <button
+                            onClick={() =>
+                              signIn("spotify", {
+                                callbackUrl: "/",
+                                authorizationParams: {
+                                  show_dialog: "true",
+                                },
+                              })
+                            }
+                            className="text-lg md:text-2xl font-semibold border-3 text-slate-800 rounded-4xl p-2 md:p-3 cursor-pointer hover:text-white hover:bg-slate-800 transition-all duration-300"
+                          >
+                            Connect Spotify
+                          </button>
+                        </div>
+                      )}
+                </>
               ) : (
                 <div className="flex items-center gap-4">
             
