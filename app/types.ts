@@ -7,6 +7,10 @@ export type Activity = "yoga" | "work" | "sleep" | "workout" | "driving"
 
 export type SidebarProps = {
     setTracks: React.Dispatch<React.SetStateAction<any[]>>
+    selectedMood: string
+    setSelectedMood: React.Dispatch<React.SetStateAction<string>>
+    selectedActivity: string
+    setSelectedActivity: React.Dispatch<React.SetStateAction<string>>
 }
 
 export type Artist = {
@@ -27,6 +31,15 @@ export type Track = {
 }
   
 export type PlaylistPanelProps = {
-    tracks: Track[]
+    tracks: Track[],
+    mood: string,
+    activity: string
 }
 
+export type Playlist = {
+  id: number
+  mood: string
+  activity: string
+  tracks: Track[]
+  createdAt?: string
+}

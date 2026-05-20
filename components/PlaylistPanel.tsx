@@ -1,10 +1,32 @@
-import type { Artist } from "@/app/types"
-import type { Track } from "@/app/types"
+"use client"
+
+
 import type { PlaylistPanelProps } from "@/app/types"
+import { Plus, Check } from 'lucide-react';
+import { useState } from "react";
 
 
 
-export default function PlaylistPanel({ tracks }: PlaylistPanelProps) {
+export default function PlaylistPanel({ tracks, mood, activity }: PlaylistPanelProps) {
+  const [isSaved, setIsSaved] = useState(false)
+
+
+  function savePlaylist(){
+    const savedPlaylist = JSON.parse(localStorage.getItem("playlists") || "[]")
+
+    savedPlaylist.push({
+      id: Date.now(),
+      mood,
+      activity,
+      tracks
+    })
+
+    setIsSaved(true)
+    localStorage.setItem("playlists", JSON.stringify(savedPlaylist))
+  }
+
+
+
   return (
     <main className="flex-1">
       <section className="max-w-5xl mx-auto px-6 py-16">
@@ -20,6 +42,17 @@ export default function PlaylistPanel({ tracks }: PlaylistPanelProps) {
                 Press play and enjoy the vibe!
               </p>
             </div>
+
+            {isSaved ? (
+                 <button onClick={savePlaylist} className="gap-3 flex items-center mt-7 mb-7 text-md md:text-lg font-semibold border-3 rounded-4xl p-3 pr-4 md:p-3 cursor-pointer text-white bg-slate-800"> 
+                     <Check size={30} color="currentColor"/> Playlist saved 
+                  </button>
+                ): (
+                  <button onClick={savePlaylist} className="gap-3 flex items-center mt-7 mb-7 text-md md:text-lg font-semibold border-3 text-slate-800 rounded-4xl p-3 md:p-3 cursor-pointer hover:text-white hover:bg-slate-800 transition-all duration-300"> 
+                     <Plus size={30} color="currentColor"/> Save playlist 
+                  </button>
+                )
+            }
 
             <div className="space-y-6">
               {tracks.map((track, index) => (

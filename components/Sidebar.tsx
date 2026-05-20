@@ -6,9 +6,7 @@ import * as Slider from "@radix-ui/react-slider";
 import type { SidebarProps } from '@/app/types';
 
 
-export default function Sidebar({ setTracks }: SidebarProps){
-    const [selectedMood, setSelectedMood] = useState('')
-    const [selectedActivity, setSelectedActivity] = useState('')
+export default function Sidebar({ setTracks, selectedMood, setSelectedMood, selectedActivity, setSelectedActivity }: SidebarProps){
     const [selectedEnergy, setSelectedEnergy] = useState([5])
     const [loading, setLoading] = useState(false)
 
