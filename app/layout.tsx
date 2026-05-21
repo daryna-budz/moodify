@@ -7,6 +7,16 @@ const albertsans = Albert_Sans({
   weight: ["400", "500", "600", "700"],
 });
 
+export const metadata = {
+  title: 'Moodify',
+  description: 'Your playlist generator',
+  icons: {
+    icon: '/images/sparkles.png', 
+    shortcut: '/images/sparkles.png',
+    apple: '/images/sparkles.png',
+  },
+}
+
 export default function RootLayout({
   children,
 }: {
